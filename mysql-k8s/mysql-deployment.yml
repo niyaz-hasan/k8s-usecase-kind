@@ -22,17 +22,17 @@ spec:
 #              key: DB_PASSWORD
         ports:
         - containerPort: 3306
-        volumeMounts:
-        - name: mysql-storage
-          mountPath: /var/lib/mysql
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
-      volumes:
-      - name: mysql-storage
-        persistentVolumeClaim:
-          claimName: my-pvc
+#        volumeMounts:
+#        - name: mysql-storage
+#          mountPath: /var/lib/mysql
+#        resources:
+#          requests:
+#            memory: "128Mi"
+#            cpu: "250m"
+#          limits:
+#            memory: "1Gi"
+#            cpu: "500m"
+#      volumes:
+#      - name: mysql-storage
+#        persistentVolumeClaim:
+#          claimName: my-pvc
