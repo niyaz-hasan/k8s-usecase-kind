@@ -1,38 +1,63 @@
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: mysql
+#spec:
+#  selector:
+#    matchLabels:
+#      app: mysql
+#  template:
+#    metadata:
+#      labels:
+#        app: mysql
+#    spec:
+#      containers:
+#      - name: mysql
+#        image: mysql:5.7
+##        env:
+##        - name: MYSQL_ROOT_PASSWORD
+##          valueFrom:
+##            secretKeyRef:
+##              name: db-secret
+##              key: DB_PASSWORD
+#        ports:
+#        - containerPort: 3306
+##        volumeMounts:
+##        - name: mysql-storage
+##          mountPath: /var/lib/mysql
+#        resources:
+#          requests:
+#            memory: "128Mi"
+#            cpu: "250m"
+#          limits:
+#            memory: "1Gi"
+#            cpu: "500m"
+##      volumes:
+##      - name: mysql-storage
+##        persistentVolumeClaim:
+##          claimName: my-pvc
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-spec:
+spec: 
+  replicas: 1
   selector:
     matchLabels:
       app: mysql
-  template:
-    metadata:
-      labels:
+  strategy:
+    type: Recreate 
+  template: 
+    metadata: 
+      labels: 
         app: mysql
-    spec:
+    spec: 
       containers:
-      - name: mysql
-        image: mysql:5.7
-#        env:
-#        - name: MYSQL_ROOT_PASSWORD
-#          valueFrom:
-#            secretKeyRef:
-#              name: db-secret
-#              key: DB_PASSWORD
-        ports:
-        - containerPort: 3306
-#        volumeMounts:
-#        - name: mysql-storage
-#          mountPath: /var/lib/mysql
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
-#      volumes:
-#      - name: mysql-storage
-#        persistentVolumeClaim:
-#          claimName: my-pvc
+        - name: mysql
+          image: mysql:5.6
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: dbpassword11
+          ports:
+            - containerPort: 3306
