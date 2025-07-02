@@ -18,6 +18,30 @@ db.query(`
   console.log('User table ready.');
 });
 
+// UI to display users and form to add new user
+app.get('/', (req, res) => {
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) return res.status(500).send('Database query error');
+
+    let userList = '<h1>User List</h1><ul>';
+    results.forEach(user => {
+      userList += `<li>ID: ${user.id} - Name: ${user.name}</li>`;
+    });
+    userList += '</ul>';
+
+    userList += `
+      <h2>Add New User</h2>
+      <form method="POST" action="/users" enctype="application/x-www-form-urlencoded">
+        <input type="text" name="name" placeholder="Enter name" required />
+        <button type="submit">Add User</button>
+      </form>
+    `;
+
+    res.send(userList);
+  });
+});
+
+
 // Insert user
 app.post('/users', (req, res) => {
   const { name } = req.body;
