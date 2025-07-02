@@ -38,3 +38,16 @@ spec:
             secretKeyRef:
               name: mysql-secret
               key: password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: webapp
+  ports:
+    - port: 3000
+      targetPort: 3000
