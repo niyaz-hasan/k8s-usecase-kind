@@ -19,7 +19,7 @@ spec:
         command: ['sh', '-c', 'until nc -z mysql 3306; do echo waiting for mysql; sleep 2; done;']
       containers:
       - name: webapp
-        image: niyazhasan/node:latest
+        image: niyazhasan/node:v2
         ports:
         - containerPort: 3000
         env:
